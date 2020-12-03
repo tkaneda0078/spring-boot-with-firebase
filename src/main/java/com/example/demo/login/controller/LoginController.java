@@ -23,6 +23,6 @@ public class LoginController {
 			return getLogin(form, model);
 		}
 
-		return "login/login";
+		return "redirect:/list";
 	}
 }
