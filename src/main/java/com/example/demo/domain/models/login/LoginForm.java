@@ -1,4 +1,4 @@
-package com.example.demo.login.domain.model;
+package com.example.demo.domain.models.login;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
