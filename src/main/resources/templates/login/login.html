@@ -9,14 +9,19 @@
 </head>
 <body class="text-center">
   <h1>login</h1>
-  <form method="post" th:action="@{/login}">
-    <label>ID</label>
-    <input type="text" />
+  <form th:method="post" th:action="@{/login}" th:object="${loginForm}">
+    <label>user ID</label>
+    <input type="text" th:field="*{userId}" />
     <br />
     <label>password</label>
-    <input type="text" />
+    <input type="text" th:field="*{password}" />
     <br />
-    <button class="btn btn-primary" type="button">login</button>
+    <ul>
+      <li th:each="error : ${#fields.detailedErrors()}">
+        <span th:text="${error.message}">Error message</span>
+      </li>
+    </ul>
+    <button class="btn btn-primary" type="submit">login</button>
   </form>
 </body>
 </html>
