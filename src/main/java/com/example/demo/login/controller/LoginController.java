@@ -13,14 +13,14 @@ import com.example.demo.login.domain.model.LoginForm;
 @Controller
 public class LoginController {
 	@GetMapping("/login")
-	public String getLogin(@ModelAttribute LoginForm form, Model model) {
-		return "login/login";
+	public String index(@ModelAttribute LoginForm form, Model model) {
+		return "login/index";
 	}
 
 	@PostMapping("/login")
-	public String postLogin(@ModelAttribute @Validated LoginForm form, BindingResult bindingResult, Model model) {
+	public String login(@ModelAttribute @Validated LoginForm form, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			return getLogin(form, model);
+			return index(form, model);
 		}
 
 		return "redirect:/list";
