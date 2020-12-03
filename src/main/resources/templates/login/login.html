@@ -10,7 +10,7 @@
 <body class="text-center">
   <h1>login</h1>
   <form th:method="post" th:action="@{/login}" th:object="${loginForm}">
-    <label>user ID</label>
+    <label class="has-error">user ID</label>
     <input type="text" th:field="*{userId}" />
     <br />
     <label>password</label>
