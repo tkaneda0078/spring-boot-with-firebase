@@ -1,6 +1,7 @@
 package com.example.demo.domain.services;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
@@ -13,21 +14,17 @@ import com.google.firebase.FirebaseOptions;
 @Service
 public class FirebaseInitialize {
 	@PostConstruct
-	public void initialize() {
-		try {
+	public void initialize() throws IOException {
+		FileInputStream serviceAccount = new FileInputStream(
+				"src/main/java/com/example/demo/domain/config/service_account_pk.json");
 
-			FileInputStream serviceAccount = new FileInputStream("./service_account_pk.json");
+		FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
+				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
+				.setDatabaseUrl("https://spring-boot-with-firebase.firebaseio.com/")
+				.build();
 
-			FirebaseOptions options = new FirebaseOptions.Builder()
-					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
-					.setDatabaseUrl("https://spring-boot-with-firebase.firebaseio.com/")
-					.build();
-
-			FirebaseApp.initializeApp(options);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (FirebaseApp.getApps().isEmpty()) {
+			FirebaseApp.initializeApp(firebaseOptions);
 		}
 	}
-
 }
