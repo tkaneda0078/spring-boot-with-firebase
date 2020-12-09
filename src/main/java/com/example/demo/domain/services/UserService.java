@@ -6,19 +6,15 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.stereotype.Service;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
-import com.google.firebase.cloud.FirestoreClient;
 
 @Service
-public class UserService {
+public class UserService extends FirebaseService {
 	public List<QueryDocumentSnapshot> getAll() throws InterruptedException, ExecutionException {
-		// TODO: 親クラス作成する
-		Firestore db = FirestoreClient.getFirestore();
-		ApiFuture<QuerySnapshot> query = db.collection("users").get();
+		ApiFuture<QuerySnapshot> collection = this.getFirestoreCollectionBy("users");
 
-		QuerySnapshot querySnapshot = query.get();
+		QuerySnapshot querySnapshot = collection.get();
 		List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 		for (QueryDocumentSnapshot document : documents) {
 			System.out.println(document.getId());
