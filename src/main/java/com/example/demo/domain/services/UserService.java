@@ -11,11 +11,15 @@ import com.google.cloud.firestore.QuerySnapshot;
 
 @Service
 public class UserService extends FirebaseService {
-	public List<QueryDocumentSnapshot> getAll() throws InterruptedException, ExecutionException {
-		ApiFuture<QuerySnapshot> collection = this.getFirestoreCollectionBy("users");
+	/**
+	 * Firestore Collection
+	 */
+	private final String COLLECTION_NAME = "users";
 
-		QuerySnapshot querySnapshot = collection.get();
-		List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+	public List<QueryDocumentSnapshot> getAll() throws InterruptedException, ExecutionException {
+		ApiFuture<QuerySnapshot> collection = this.getFirestoreCollectionBy(this.COLLECTION_NAME);
+		List<QueryDocumentSnapshot> documents = this.getFirestoreDocuments(collection);
+
 		for (QueryDocumentSnapshot document : documents) {
 			System.out.println(document.getId());
 			System.out.println(document.getString("firstName"));
