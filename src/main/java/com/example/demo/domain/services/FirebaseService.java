@@ -36,6 +36,7 @@ public class FirebaseService {
 	public List<QueryDocumentSnapshot> getFirestoreDocuments(ApiFuture<QuerySnapshot> collection)
 			throws InterruptedException, ExecutionException {
 		QuerySnapshot querySnapshot = collection.get();
+
 		return querySnapshot.getDocuments();
 	}
 }
